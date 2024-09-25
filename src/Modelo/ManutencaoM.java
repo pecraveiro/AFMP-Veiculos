@@ -1,4 +1,4 @@
-package Models;
+package Modelo;
 
 import java.util.Date;
 
@@ -10,8 +10,8 @@ public class ManutencaoM extends VeiculoM {
     private boolean status;
 
     public ManutencaoM(String chassi, String marca, String versao, int ano, String modelo, String cor, float preco,
-            Date dataVenda, boolean codicao, int idManutencao, Date dataservico, int tempoServico, float custo,
-            boolean status) {
+                       Date dataVenda, boolean codicao, int idManutencao, Date dataservico, int tempoServico, float custo,
+                       boolean status) {
         super(chassi, marca, versao, ano, modelo, cor, preco, dataVenda, codicao, custo, tempoServico);
         this.idManutencao = idManutencao;
         this.dataservico = dataservico;

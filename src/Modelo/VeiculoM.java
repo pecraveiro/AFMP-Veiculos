@@ -1,4 +1,4 @@
-package Models;
+package Modelo;
 
 // Importando as bibliotecas Random, Date e Year
 import java.util.Random;
@@ -7,38 +7,38 @@ import java.time.Year;
 
 public class VeiculoM {
     // Definindo as variáveis do veículo
-    private String chassi;     
-    private String marca;      
-    private String versao;     
-    private int ano;           
-    private String modelo;     
-    private String cor;        
-    private float preco;       
-    private Date dataVenda;    
-    private boolean codicao;   
-    private float kmAtual;     
-    private int anoCompra;     
-    
+    private String chassi;
+    private String marca;
+    private String versao;
+    private int ano;
+    private String modelo;
+    private String cor;
+    private float preco;
+    private Date dataVenda;
+    private boolean codicao;
+    private float kmAtual;
+    private int anoCompra;
+
     // Criando o construtor com todas as variáveis
-    public VeiculoM(String chassi, String marca, String versao, int ano, String modelo, 
-                    String cor, float preco, Date dataVenda, boolean codicao, 
+    public VeiculoM(String chassi, String marca, String versao, int ano, String modelo,
+                    String cor, float preco, Date dataVenda, boolean codicao,
                     float kmAtual, int anoCompra) {
-        this.chassi = chassi;         
-        this.marca = marca;           
-        this.versao = versao;         
-        this.ano = ano;               
-        this.modelo = modelo;        
-        this.cor = cor;             
-        this.preco = preco;          
-        this.dataVenda = dataVenda;  
-        this.codicao = codicao;       
-        this.kmAtual = kmAtual;       
-        this.anoCompra = anoCompra;   
+        this.chassi = chassi;
+        this.marca = marca;
+        this.versao = versao;
+        this.ano = ano;
+        this.modelo = modelo;
+        this.cor = cor;
+        this.preco = preco;
+        this.dataVenda = dataVenda;
+        this.codicao = codicao;
+        this.kmAtual = kmAtual;
+        this.anoCompra = anoCompra;
     }
 
     // Criando os getters e setters para acessar e modificar as variáveis
     public String getChassi() {
-        return chassi; 
+        return chassi;
     }
 
     public void setChassi(String chassi) {
@@ -46,7 +46,7 @@ public class VeiculoM {
     }
 
     public String getMarca() {
-        return marca; 
+        return marca;
     }
 
     public void setMarca(String marca) {
@@ -58,23 +58,23 @@ public class VeiculoM {
     }
 
     public void setVersao(String versao) {
-        this.versao = versao; 
+        this.versao = versao;
     }
 
     public int getAno() {
-        return ano; 
+        return ano;
     }
 
     public void setAno(int ano) {
-        this.ano = ano; 
+        this.ano = ano;
     }
 
     public String getModelo() {
-        return modelo; 
+        return modelo;
     }
 
     public void setModelo(String modelo) {
-        this.modelo = modelo; 
+        this.modelo = modelo;
     }
 
     public String getCor() {
@@ -86,31 +86,31 @@ public class VeiculoM {
     }
 
     public float getPreco() {
-        return preco; 
+        return preco;
     }
 
     public void setPreco(float preco) {
-        this.preco = preco; 
+        this.preco = preco;
     }
 
     public Date getDataVenda() {
-        return dataVenda; 
+        return dataVenda;
     }
 
     public void setDataVenda(Date dataVenda) {
-        this.dataVenda = dataVenda; 
+        this.dataVenda = dataVenda;
     }
 
     public boolean isCodicao() {
-        return codicao; 
+        return codicao;
     }
 
     public void setCodicao(boolean codicao) {
-        this.codicao = codicao; 
+        this.codicao = codicao;
     }
 
     public float getKmAtual() {
-        return kmAtual; 
+        return kmAtual;
     }
 
     public void setKmAtual(float kmAtual) {
@@ -122,7 +122,7 @@ public class VeiculoM {
     }
 
     public void setAnoCompra(int anoCompra) {
-        this.anoCompra = anoCompra; 
+        this.anoCompra = anoCompra;
     }
 
     // Criando uma função para verificar a condição do veículo (usado ou novo)
@@ -132,7 +132,7 @@ public class VeiculoM {
 
     // Criando uma função para criar o chassi com 17 caracteres aleatórios
     public String criarChassi() {
-        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; 
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         Random random = new Random(); // Criando uma instância de Random
         String chassi = ""; // Inicializando o chassi
 
@@ -143,11 +143,11 @@ public class VeiculoM {
         }
 
         this.chassi = chassi; // Atribuindo o chassi gerado à variável chassi
-        return chassi; 
+        return chassi;
     }
 
     // Método para calcular a idade do veículo
-	    private int calcularIdade() {
+    private int calcularIdade() {
         int anoAtual = Year.now().getValue(); // Obtendo o ano atual
         return anoAtual - anoCompra; // Calculando a idade
     }
@@ -176,7 +176,7 @@ public class VeiculoM {
     // Método para imprimir as informações do veículo
     public void imprimeVeiculo() {
         System.out.println("\n----------Veiculo----------\n");
-        chassi = criarChassi(); 
+        chassi = criarChassi();
         float precoReal = veiculoUsado(this.preco);
         System.out.println("Chassi:             " + chassi);
         System.out.println("Marca:              " + this.getMarca());
