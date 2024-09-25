@@ -1,4 +1,5 @@
-package Models;
+package Modelo;
+
 import java.util.Date;
 
 public class VendasM extends VeiculoM {
@@ -8,8 +9,8 @@ public class VendasM extends VeiculoM {
     private String chassi;
     private float valor_final;
 
-    public VendasM(String chassi, String marca, String versao, int ano, String modelo, String cor, float preco, Date dataVenda, boolean codicao, float kmAtual, int id_vendas, Date data_venda, String cpf, String chassi1, float valor_final) {
-        super(chassi, marca, versao, ano, modelo, cor, preco, dataVenda, codicao, kmAtual);
+    public VendasM(String chassi, String marca, String versao, int ano, String modelo, String cor, float preco, Date dataVenda, boolean codicao, int id_vendas, Date data_venda, String cpf, String chassi1, float valor_final) {
+        super(chassi, marca, versao, ano, modelo, cor, preco, dataVenda, codicao);
         this.id_vendas = id_vendas;
         this.data_venda = data_venda;
         this.cpf = cpf;
