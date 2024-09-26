@@ -9,16 +9,6 @@ public class ManutencaoM extends VeiculoM {
     private float custo;
     private boolean status;
 
-    public ManutencaoM(String chassi, String marca, String versao, int ano, String modelo, String cor, float preco,
-                       Date dataVenda, boolean codicao, int idManutencao, Date dataservico, int tempoServico, float custo,
-                       boolean status) {
-        super(chassi, marca, versao, ano, modelo, cor, preco, dataVenda, codicao, custo, tempoServico);
-        this.idManutencao = idManutencao;
-        this.dataservico = dataservico;
-        this.tempoServico = tempoServico;
-        this.custo = custo;
-        this.status = status;
-    }
 
     public int getIdManutencao() {
         return idManutencao;
@@ -61,23 +51,22 @@ public class ManutencaoM extends VeiculoM {
     }
 
     // FUNCAO DE VERIFICAR QUAL MANUTENCAO PRECISA
-    public static void verificarManutencao(double kmRodados) {
+    public static void verificarManutencao(double KmAtual) {
         int intervalo = 10000;
-        int ultimaManutencao = (int) (kmRodados / intervalo) * intervalo;
+        int ultimaManutencao = ((int) (KmAtual / intervalo)) * intervalo;
         int proximaManutencao = ultimaManutencao + intervalo;
-        if (kmRodados < ultimaManutencao) {
-            System.out.println("O carro deve fazer a manutenção de " + ultimaManutencao + " km.");
-        } else if (kmRodados >= ultimaManutencao && kmRodados < proximaManutencao) {
-            if (kmRodados - ultimaManutencao < intervalo * 0.1) {
+
+        if (KmAtual >= proximaManutencao) {
+            System.out.println("O carro passou do intervalo de manutenção. Verifique a manutenção de "
+                    + proximaManutencao + " km.");
+        } else if (KmAtual >= ultimaManutencao && KmAtual < proximaManutencao) {
+            if (KmAtual - ultimaManutencao < intervalo * 0.1) {
                 System.out.println("O carro deve fazer a manutenção de " + ultimaManutencao + " km.");
-            } else if (proximaManutencao - kmRodados < intervalo * 0.1) {
+            } else if (proximaManutencao - KmAtual < intervalo * 0.1) {
                 System.out.println("O carro deve se preparar para a manutenção de " + proximaManutencao + " km.");
             } else {
                 System.out.println("O carro está dentro da quilometragem de operação normal.");
             }
-        } else {
-            System.out.println("O carro passou do intervalo de manutenção. Verifique a manutenção de "
-                    + proximaManutencao + " km.");
         }
     }
 
@@ -127,9 +116,20 @@ public class ManutencaoM extends VeiculoM {
         System.out.println("Custo estimado para o serviço: R$ " + custo);
     }
 
+    public ManutencaoM(String chassi, String marca, String versao, int ano, String modelo, String cor, float preco, Date dataVenda, boolean condicao, float kmAtual, int anoCompra, int idManutencao, Date dataservico, int tempoServico, float custo, boolean status)
+    {
+        super(chassi, marca, versao, ano, modelo, cor, preco, dataVenda, condicao, kmAtual, anoCompra);
+        this.idManutencao = idManutencao;
+        this.dataservico = dataservico;
+        this.tempoServico = tempoServico;
+        this.custo = custo;
+        this.status = status;
+    }
+
     // FUNCAO PARA IMPRIMIR DETALHES DA MANUTENCAO
     public void imprimeManutencao() {
         System.out.println("\n------------------Detalhes da Manutenção------------------");
+        System.out.println("Km Atual: " + this.getKmAtual());
         System.out.println("ID da Manutenção: " + idManutencao);
         System.out.println("Data do Serviço: " + dataservico);
         tempoCusto(this.getKmAtual());
