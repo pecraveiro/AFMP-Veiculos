@@ -143,8 +143,14 @@ public class VeiculoM {
 
     // Método para calcular a idade do veículo
     private int calcularIdade() {
-        int anoAtual = Year.now().getValue(); // Obtendo o ano atual
-        return anoAtual - anoCompra; // Calculando a idade
+        int anoAtual = Year.now().getValue();
+        int idade = anoAtual - anoCompra;
+
+        // Lançar uma exceção RuntimeException, não verificada
+        if (idade > 100) {
+            throw new RuntimeException("Erro: A idade do veículo excede o limite de 100 anos.");
+        }
+        return idade;
     }
 
     // Função única para verificar a condição do veículo (usado ou novo)
@@ -154,15 +160,21 @@ public class VeiculoM {
 
     // Método para calcular o preço do veículo usado
     public float veiculoUsado(float preco) {
-        // Usamos a string retornada por condicaoVeiculo para comparar com "Usado"
-        if (condicaoVeiculo().equals("Usado")) { // Verificando se o veículo é usado
+        // Verificamos se o veículo é usado
+        if (condicaoVeiculo().equals("Usado")) {
             int anosUso = calcularIdade();
-            preco *= 0.7f; // Aplicando uma redução inicial de 30%
-            // Aplicando desvalorização com base nos anos de uso
-            for (int i = 0; i <= 10; i++) {
-                if (anosUso > 0) {
-                    float precoDesvalorizacao = preco * 0.05f; // - 5% ao ano
-                    preco -= precoDesvalorizacao; // Reduzindo o preço
+            preco *= 0.8f; // Aplicando uma redução inicial de 20%
+
+            if (anosUso > 0) {
+                // Desvalorização para veículos com até 20 anos
+                for (int i = 1; i <= anosUso; i++) {
+                    if (i <= 20) {
+                        float precoDesvalorizacao = preco * 0.05f; // Desvalorização de 5% ao ano até 20 anos
+                        preco -= precoDesvalorizacao; // Reduzindo o preço
+                    } else {
+                        float precoDesvalorizacao = preco * 0.01f; // Desvalorização de 1% após 20 anos
+                        preco -= precoDesvalorizacao; // Reduzindo o preço
+                    }
                 }
             }
         }

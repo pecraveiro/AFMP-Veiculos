@@ -9,6 +9,15 @@ public class ManutencaoM extends VeiculoM {
     private float custo;
     private boolean status;
 
+    public ManutencaoM(String chassi, String marca, String versao, int ano, String modelo, String cor, float preco,
+                       Date dataVenda, boolean condicao, float kmAtual, int anoCompra, int idManutencao, Date dataservico) {
+        super(chassi, marca, versao, ano, modelo, cor, preco, dataVenda, condicao, kmAtual, anoCompra);
+        this.idManutencao = idManutencao;
+        this.dataservico = dataservico;
+        this.tempoServico = 0; // Inicializando como 0
+        this.custo = 0; // Inicializando como 0
+        this.status = false; // Status padrão como pendente (false)
+    }
 
     public int getIdManutencao() {
         return idManutencao;
@@ -42,16 +51,17 @@ public class ManutencaoM extends VeiculoM {
         this.custo = custo;
     }
 
-    public boolean isStatus() {
-        return status;
+    public void setStatus(boolean status) { this.status = status; }
+
+    public boolean getStatus() { return status; }
+
+    public String verificarStatus() {
+        return this.status ? "Concluída" : "Pendente";
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 
     // FUNCAO DE VERIFICAR QUAL MANUTENCAO PRECISA
-    public static void verificarManutencao(double KmAtual) {
+    public static void verificarManutencao(float KmAtual) {
         int intervalo = 10000;
         int ultimaManutencao = ((int) (KmAtual / intervalo)) * intervalo;
         int proximaManutencao = ultimaManutencao + intervalo;
@@ -104,7 +114,7 @@ public class ManutencaoM extends VeiculoM {
         }
 
         // Verifica quilometragem acima de 55.000 km
-        if (kmAtual > 55000 && kmAtual < 100000) {
+        if (kmAtual >= 55000 && kmAtual < 100000) {
             multiplicador = 7;
             this.custo = tempo * custoPorHora * multiplicador;
         } else if (kmAtual >= 100000) {
@@ -113,17 +123,7 @@ public class ManutencaoM extends VeiculoM {
         }
 
         System.out.println("Tempo estimado para o serviço: " + tempo + " horas");
-        System.out.println("Custo estimado para o serviço: R$ " + custo);
-    }
-
-    public ManutencaoM(String chassi, String marca, String versao, int ano, String modelo, String cor, float preco, Date dataVenda, boolean condicao, float kmAtual, int anoCompra, int idManutencao, Date dataservico, int tempoServico, float custo, boolean status)
-    {
-        super(chassi, marca, versao, ano, modelo, cor, preco, dataVenda, condicao, kmAtual, anoCompra);
-        this.idManutencao = idManutencao;
-        this.dataservico = dataservico;
-        this.tempoServico = tempoServico;
-        this.custo = custo;
-        this.status = status;
+        System.out.println("Custo estimado para o serviço: R$ " + custo );
     }
 
     // FUNCAO PARA IMPRIMIR DETALHES DA MANUTENCAO
@@ -134,6 +134,6 @@ public class ManutencaoM extends VeiculoM {
         System.out.println("Data do Serviço: " + dataservico);
         tempoCusto(this.getKmAtual());
         verificarManutencao(this.getKmAtual());
-        System.out.println("Status da Manutenção: " + (status ? "Concluída" : "Pendente"));
+        System.out.println("Status da Manutenção: " + verificarStatus());
     }
 }
