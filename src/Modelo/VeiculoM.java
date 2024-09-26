@@ -15,13 +15,13 @@ public class VeiculoM {
     private String cor;
     private float preco;
     private Date dataVenda;
-    private boolean codicao;
+    private boolean condicao;
     private float kmAtual;
     private int anoCompra;
 
     // Criando o construtor com todas as variáveis
     public VeiculoM(String chassi, String marca, String versao, int ano, String modelo,
-                    String cor, float preco, Date dataVenda, boolean codicao,
+                    String cor, float preco, Date dataVenda, boolean condicao,
                     float kmAtual, int anoCompra) {
         this.chassi = chassi;
         this.marca = marca;
@@ -31,7 +31,7 @@ public class VeiculoM {
         this.cor = cor;
         this.preco = preco;
         this.dataVenda = dataVenda;
-        this.codicao = codicao;
+        this.condicao = condicao;
         this.kmAtual = kmAtual;
         this.anoCompra = anoCompra;
     }
@@ -101,12 +101,12 @@ public class VeiculoM {
         this.dataVenda = dataVenda;
     }
 
-    public boolean isCodicao() {
-        return codicao;
+    public boolean isCondicao() {
+        return condicao;
     }
 
-    public void setCodicao(boolean codicao) {
-        this.codicao = codicao;
+    public void setCondicao(boolean condicao) {
+        this.condicao = condicao;
     }
 
     public float getKmAtual() {
@@ -123,11 +123,6 @@ public class VeiculoM {
 
     public void setAnoCompra(int anoCompra) {
         this.anoCompra = anoCompra;
-    }
-
-    // Criando uma função para verificar a condição do veículo (usado ou novo)
-    public String condicaoVeiculo() {
-        return this.isCodicao() ? "Usado" : "Novo";
     }
 
     // Criando uma função para criar o chassi com 17 caracteres aleatórios
@@ -152,14 +147,15 @@ public class VeiculoM {
         return anoAtual - anoCompra; // Calculando a idade
     }
 
-    // Método para verificar se o veículo é usado
-    public boolean isUsado() {
-        return calcularIdade() > 3 || kmAtual > 20000; // Retorna true se for usado
+    // Função única para verificar a condição do veículo (usado ou novo)
+    public String condicaoVeiculo() {
+        return (calcularIdade() > 3 || kmAtual > 20000) ? "Usado" : "Novo";
     }
 
     // Método para calcular o preço do veículo usado
     public float veiculoUsado(float preco) {
-        if (isUsado()) { // Verificando se o veículo é usado
+        // Usamos a string retornada por condicaoVeiculo para comparar com "Usado"
+        if (condicaoVeiculo().equals("Usado")) { // Verificando se o veículo é usado
             int anosUso = calcularIdade();
             preco *= 0.7f; // Aplicando uma redução inicial de 30%
             // Aplicando desvalorização com base nos anos de uso
@@ -187,6 +183,6 @@ public class VeiculoM {
         System.out.println("Preço:              " + precoReal);
         System.out.println("Data de Venda:      " + this.getDataVenda());
         System.out.println("Condição:           " + condicaoVeiculo());
-        System.out.println("Quilometragem Atual:" + this.getKmAtual() + " km");
+        System.out.println("Quilometragem Atual: " + this.getKmAtual() + " km");
     }
 }
