@@ -1,5 +1,3 @@
-package Controlador;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +7,7 @@ import Modelo.VendasM;
 
 public class VendasC {
     private List<VendasM> listaDeVendas = new ArrayList<>();
-
+    // Comentario
     // Cadastrar uma nova venda
     public void cadastrarVenda(VendasM venda) {
         listaDeVendas.add(venda);
