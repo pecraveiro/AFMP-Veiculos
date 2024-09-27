@@ -1,8 +1,13 @@
+package Controlador;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class VendaController {
+import Modelo.VendasM;
+
+
+public class VendasC {
     private List<VendasM> listaDeVendas = new ArrayList<>();
 
     // Cadastrar uma nova venda
@@ -14,7 +19,7 @@ public class VendaController {
     // Atualizar uma venda existente
     public void atualizarVenda(int idVendas, String cpf, Date dataVenda, float valorFinal) {
         for (VendasM venda : listaDeVendas) {
-            if (venda.getIdVendas() == idVendas) {
+            if (venda.getId_vendas() == idVendas) {
                 venda.realizarVenda(cpf, dataVenda, valorFinal);
                 System.out.println("Venda atualizada com sucesso!");
                 return;
@@ -27,7 +32,7 @@ public class VendaController {
     public void excluirVenda(int idVendas) {
         VendasM vendaARemover = null;
         for (VendasM venda : listaDeVendas) {
-            if (venda.getIdVendas() == idVendas) {
+            if (venda.getId_vendas() == idVendas) {
                 vendaARemover = venda;
                 break;
             }
@@ -60,7 +65,7 @@ public class VendaController {
             for (VendasM venda : listaDeVendas) {
                 venda.imprimeVeiculo();
                 System.out.println("CPF do comprador: " + venda.getCpf());
-                System.out.println("Valor final da venda: R$ " + venda.getValorFinal());
+                System.out.println("Valor final da venda: R$ " + venda.getValor_final());
                 System.out.println("Data da venda: " + venda.getDataVenda());
             }
         }
