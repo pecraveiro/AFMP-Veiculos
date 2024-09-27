@@ -56,7 +56,7 @@ public class VendasM extends VeiculoM {
     public void setValor_final(float valor_final) {
         this.valor_final = valor_final;
     }
-    
+
     // Função para realizar a venda
     public void realizarVenda(String cpf, Date dataVenda, float valorFinal) {
         this.cpf = cpf;

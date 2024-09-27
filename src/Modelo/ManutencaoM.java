@@ -60,25 +60,24 @@ public class ManutencaoM extends VeiculoM {
     }
 
 
-    // FUNCAO DE VERIFICAR QUAL MANUTENCAO PRECISA
     public static void verificarManutencao(float KmAtual) {
         int intervalo = 10000;
-        int ultimaManutencao = ((int) (KmAtual / intervalo)) * intervalo;
-        int proximaManutencao = ultimaManutencao + intervalo;
 
-        if (KmAtual >= proximaManutencao) {
-            System.out.println("O carro passou do intervalo de manutenção. Verifique a manutenção de "
-                    + proximaManutencao + " km.");
-        } else if (KmAtual >= ultimaManutencao && KmAtual < proximaManutencao) {
-            if (KmAtual - ultimaManutencao < intervalo * 0.1) {
-                System.out.println("O carro deve fazer a manutenção de " + ultimaManutencao + " km.");
-            } else if (proximaManutencao - KmAtual < intervalo * 0.1) {
-                System.out.println("O carro deve se preparar para a manutenção de " + proximaManutencao + " km.");
-            } else {
-                System.out.println("O carro está dentro da quilometragem de operação normal.");
-            }
+        // Encontra o múltiplo mais próximo para a última manutenção (sempre arredondando para baixo)
+        int ultimaManutencao = ((int) (KmAtual / intervalo)) * intervalo;
+
+        // Verifica qual a próxima manutenção a ser feita
+        if (KmAtual < ultimaManutencao + intervalo * 0.5) {
+            // Se o KmAtual estiver até a metade do próximo intervalo
+            System.out.println("O carro deve fazer a manutenção de " + ultimaManutencao + " km.");
+        } else {
+            // Se estiver além da metade do intervalo, considera a próxima manutenção
+            int proximaManutencao = ultimaManutencao + intervalo;
+            System.out.println("O carro deve fazer a manutenção de " + proximaManutencao + " km.");
         }
     }
+
+
 
     // FUNCAO DE VERIFICAR QUANTO TEMPO DE SERVIÇO SERA NECESSÁRIO
     public int tempoServico() {
