@@ -1,71 +1,74 @@
+package Controlador;
+
+import Modelo.VendasM;
+import Modelo.VeiculoM;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import Modelo.VendasM;
-
-
 public class VendasC {
-    private List<VendasM> listaDeVendas = new ArrayList<>();
-    // Comentario
-    // Cadastrar uma nova venda
-    public void cadastrarVenda(VendasM venda) {
-        listaDeVendas.add(venda);
-        System.out.println("Venda cadastrada com sucesso!");
+    private List<VendasM> vendas;
+
+    public VendasC() {
+        vendas = new ArrayList<>();
     }
 
-    // Atualizar uma venda existente
-    public void atualizarVenda(int idVendas, String cpf, Date dataVenda, float valorFinal) {
-        for (VendasM venda : listaDeVendas) {
-            if (venda.getId_vendas() == idVendas) {
-                venda.realizarVenda(cpf, dataVenda, valorFinal);
-                System.out.println("Venda atualizada com sucesso!");
-                return;
-            }
-        }
-        System.out.println("Venda não encontrada.");
+    // ---------------------------------------------------ADICIONAR---------------------------------------------------
+    // Método para adicionar uma nova venda passando o objeto VeiculoM
+    public void adicionarVenda(VeiculoM veiculo, int idVendas, Date dataVenda, String cpf) {
+        float valorFinal = veiculo.veiculoUsado(veiculo.getPreco());
+        VendasM novaVenda = new VendasM(veiculo, idVendas, dataVenda, cpf, valorFinal);
+        vendas.add(novaVenda);
+        System.out.println("Venda adicionada com sucesso!");
     }
 
-    // Excluir uma venda
-    public void excluirVenda(int idVendas) {
-        VendasM vendaARemover = null;
-        for (VendasM venda : listaDeVendas) {
-            if (venda.getId_vendas() == idVendas) {
-                vendaARemover = venda;
-                break;
-            }
-        }
-
-        if (vendaARemover != null) {
-            listaDeVendas.remove(vendaARemover);
-            System.out.println("Venda excluída com sucesso!");
+    // ---------------------------------------------------LISTAR---------------------------------------------------
+    // Método para listar todas as vendas
+    public void listarVendas() {
+        if (vendas.isEmpty()) {
+            System.out.println("Nenhuma venda registrada.");
         } else {
-            System.out.println("Venda não encontrada.");
+            for (VendasM venda : vendas) {
+                venda.getVeiculo().imprimeVeiculo();  // Imprime detalhes do veículo
+                System.out.println("CPF do comprador: " + venda.getCpf());
+                System.out.println("Valor final da venda: R$ " + venda.getValor_final());
+                System.out.println("Data da venda: " + venda.getData_venda());
+            }
         }
     }
 
-    // Buscar uma venda pelo CPF
-    public VendasM buscarVendaPorCpf(String cpf) {
-        for (VendasM venda : listaDeVendas) {
-            if (venda.getCpf().equals(cpf)) {
-                return venda;
+    //---------------------------------------------------BUSCAR---------------------------------------------------
+    // Método para buscar uma venda por ID
+    public VendasM buscarVendaPorId(int idVendas) {
+        for (VendasM venda : vendas) {
+            if (venda.getId_vendas() == idVendas) {
+                return venda;  // Retorna a venda encontrada
             }
         }
-        System.out.println("Nenhuma venda encontrada para o CPF informado.");
+        System.out.println("Venda com ID " + idVendas + " não encontrada.");
         return null;
     }
 
-    // Listar todas as vendas
-    public void listarVendas() {
-        if (listaDeVendas.isEmpty()) {
-            System.out.println("Nenhuma venda cadastrada.");
+    //---------------------------------------------------ATUALIZAR---------------------------------------------------
+    // Método para atualizar uma venda existente
+    public void atualizarVenda(int idVendas, String cpf, Date dataVenda, float valorFinal) {
+        VendasM venda = buscarVendaPorId(idVendas);
+        if (venda != null) {
+            venda.realizarVenda(cpf, dataVenda, valorFinal);
+            System.out.println("Venda atualizada com sucesso!");
+        }
+    }
+
+    // ---------------------------------------------------REMOVER---------------------------------------------------
+    // Método para remover uma venda
+    public void removerVenda(int idVendas) {
+        VendasM venda = buscarVendaPorId(idVendas);
+        if (venda != null) {
+            vendas.remove(venda);
+            System.out.println("Venda removida com sucesso!");
         } else {
-            for (VendasM venda : listaDeVendas) {
-                venda.imprimeVeiculo();
-                System.out.println("CPF do comprador: " + venda.getCpf());
-                System.out.println("Valor final da venda: R$ " + venda.getValor_final());
-                System.out.println("Data da venda: " + venda.getDataVenda());
-            }
+            System.out.println("Venda com ID " + idVendas + " não encontrada.");
         }
     }
 }

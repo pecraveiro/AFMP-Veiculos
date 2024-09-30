@@ -1,4 +1,4 @@
-package Controlador;
+package Controladores;
 
 import Modelo.ManutencaoM;
 import Modelo.VeiculoM;
